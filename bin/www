@@ -1,0 +1,7 @@
+#! /usr/bin/env node
+const config = require('./config')
+const command = require('commander')
+
+command.name('myserver')
+
+command.parse(process.argv)
