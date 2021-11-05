@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <el-button>这个是自定义的button</el-button>
+
+    <template id="el_button">
+      <button class="el-button">
+        <slot>默认按钮</slot>
+      </button>
+    </template>
+
+    <script>
+      class ElButton extends HTMLElement {
+        constructor() {
+          super()
+          const showDom = this.attachShadow({ mode: 'open' })
+          const tpl = document.getElementById('el_button')
+          const copyTpl = tpl.content.cloneNode(true)
+
+          showDom.appendChild(copyTpl)
+        }
+      }
+
+      window.customElements.define('el-button', ElButton)
+    </script>
+  </body>
+</html>
+<script>
+  const a = {
+    value: 1,
+    func1() {
+      console.log(this.value)
+    },
+    func2: () => {
+      console.log(this.value)
+    },
+  }
+
+  const b = {
+    ...a,
+    value: 3,
+  }
+
+  b.func1()
+  b.func2()
+</script>

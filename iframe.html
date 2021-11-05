@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        height: 100vh;
+        width: 100vw;
+        background: red;
+      }
+    </style>
+  </head>
+  <body></body>
+</html>
+<script>
+  function getURLParams(key) {
+    const reg = new RegExp(`${key}=([^&]*)`)
+    console.log(window.location.href.match(reg))
+    return window.location.href.match(reg)[1]
+  }
+
+  const iframeNode = document.createElement('iframe')
+  iframeNode.name = 'myiframe'
+  iframeNode.src = getURLParams('myiframe')
+  iframeNode.sandbox = 'allow-scripts allow-same-origin'
+  iframeNode.seamless = 'seamless'
+  iframeNode.id = 'myiframe'
+  iframeNode.scrolling = 'no'
+  iframeNode.mozbrowser = 'mozbrowser'
+  iframeNode.width = '375px'
+  iframeNode.height = '750px'
+  iframeNode.frameborder = 'no'
+  iframeNode.style.border = 'none'
+  document.body.appendChild(iframeNode)
+</script>

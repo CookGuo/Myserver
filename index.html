@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">
+      点击按钮获取摄像头权限
+    </button>
+    <video></video>
+  </body>
+</html>
+<script>
+  // function clone(parent, child) {
+  //   // 这里改用 Object.create 就可以减少组合继承中多进行一次构造的过程
+  //   child.prototype = Object.create(parent.prototype)
+  //   child.prototype.constructor = child
+  // }
+
+  // Parent = {
+  //   name: 'parent',
+  //   play: [1, 2, 3],
+  // }
+
+  // Parent.prototype.getName = function () {
+  //   return this.name
+  // }
+
+  // function Child() {
+  //   // Parent.call(this)
+  //   this.friends = 'child5'
+  // }
+
+  // clone(Parent, Child)
+
+  // Child.prototype.getFriends = function () {
+  //   return this.friends
+  // }
+
+  // let person6 = new Child()
+  // console.log(person6)
+  // console.log(person6.getName())
+  // console.log(person6.getFriends())
+
+  // function User() {
+  //   console.log(this)
+  // }
+
+  // User()
+
+  // function call(context, ...args) {
+  //   context = context || window
+  //   var fn = this
+  //   var result = fn.apply(context, args)
+  //   return result
+  // }
+
+  // function apply(context, args) {
+  //   context = context || window
+  //   context.fn = this
+  //   var result = evel(`context.fn(...args)`)
+  //   return result
+  // }
+
+  // fn = a.getName.bind(b, ['hi~'])
+
+  // function bind(context, ...args) {
+  //   var self = (this = a)
+  //   var bfn = function () {
+  //     self.apply(context, args)
+  //   }
+
+  //   bfn.prototype = Object.create(this.prototype)
+
+  //   return bfn
+  // }
+
+  // new fn()
+
+  // for (var i = 1; i <= 5; i++) {
+  //   setTimeout(
+  //     function (j) {
+  //       console.log(j, '----')
+  //     },
+  //     0,
+  //     i
+  //   )
+  // }
+
+  // function reducePromise(myPromises) {
+  //   myPromises.reduce(
+  //     (previousPromise, nextPromise) =>
+  //       previousPromise.then(() => nextPromise()),
+  //     Promise.resolve()
+  //   )
+  // }
+
+  // const createPromise = (time, id) => () =>
+  //   new Promise((solve) =>
+  //     setTimeout(() => {
+  //       console.log('promise', id)
+  //       solve()
+  //     }, time)
+  //   )
+
+  // reducePromise([p1, p2, p3])
+
+  // // Promise.resolve(1).then(console.log).then(console.log).then(console.log)
+
+  // Promise.resolve(1)
+  //   .then((res) => {
+  //     console.log(res)
+  //     return 2
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //     return 3
+  //   })
+  //   .then((res) => {
+  //     console.log(res)
+  //   })
+
+  // var obj = { 0: 'a', 1: 'b', 2: 'c', length: 3 }
+  // Array.from(obj)
+  // // console.log(' Array.from(obj): ', Array.from(obj))
+
+  // var a = {}
+  // var ab = []
+
+  // Array.from(ab)
+
+  // console.log('  Array.from(ab): ', Array.from(ab))
+  // a[Symbol.iterator] = {}
+  // console.log(' Array.from(obj): ', Array.from(a))
+
+  // var obj = {
+  //   0: 1,
+  //   1: 2,
+  //   length: 2,
+  //   a: 1,
+  //   b: [],
+  //   c: function () {},
+  //   [Symbol.iterator]: ab[Symbol.iterator],
+  // }
+
+  // for (var key of obj) {
+  //   console.log(key)
+  // }
+
+  // var objfrom = Array.from(obj)
+  // console.log(' objfrom ', objfrom)
+
+  // for (var key of objfrom) {
+  //   console.log(key)
+  // }
+
+  // var array = ['cat', 'dog', 'cow', 'chicken', 'mouse']
+
+  // var depArr = [1, 2, [3, 5, [6, 7]]]
+  // console.log('depArr: ', depArr.toString())
+
+  // var item = array.pop()
+  // // console.log(array) // ["cat", "dog", "cow", "chicken"]
+  // // console.log(item) // mouse
+
+  // for (var key of array) {
+  //   console.log(key)
+  // }
+  // console.log('array: ', array)
+  // console.log(array.next().value)
+
+  // var events = require('events')
+  // var eventEmitter = new events.EventEmitter()
+  // eventEmitter.on('say', function (name) {
+  //   console.log('完成了p1')
+  // })
+
+  // p1.then((res) => {
+  //   eventEmitter.emit('say', res)
+  // })
+
+  // const readFileThunk = (filename) => {
+  //   return (callback) => {
+  //     fs.readFile(filename, callback)
+  //   }
+  // }
+  // const gen = function* () {
+  //   const data1 = yield readFileThunk('1.txt')
+  //   console.log(data1.toString())
+  //   const data2 = yield readFileThunk('2.txt')
+  //   console.log(data2.toString)
+  // }
+
+  // let g = gen()
+
+  // // let { value, done } = g.next()
+
+  // g.next().value((err, data1) => {
+  //   g.next(data1).value((err, data2) => {
+  //     g.next(data2)
+  //   })
+  // })
+
+  // function run(gen) {
+  //   const next = (err, data) => {
+  //     let res = gen.next(data)
+  //     if (res.done) return
+  //     res.value(next)
+  //   }
+  //   next()
+  // }
+  // run(g)
+
+  // function Timer() {
+  //   this.s1 = 0
+  //   this.s2 = 0
+  //   // 箭头函数
+  //   setInterval(() => this.s1++, 1000)
+  //   // 普通函数
+  //   setInterval(function () {
+  //     this.s2++
+  //   }, 1000)
+  // }
+
+  // var timer = new Timer()
+
+  // setTimeout(() => console.log('s1: ', timer.s1), 3100)
+  // setTimeout(() => console.log('s2: ', timer.s2), 3100)
+  // const oldfetch = window.fetch
+  // window.fetch = function () {
+  //   return new Promise((resolve, reject) => {
+  //     oldfetch('/text.json').then((res) => {
+  //       resolve(res)
+  //       console.log(res.json())
+  //       // resolve(res)
+  //     })
+  //   })
+  // }
+
+  // window
+  //   .fetch('http://www.baidu.com')
+  //   .then((res) => res.json())
+  //   .then((res) => {
+  //     console.log(res)
+  //   })
+
+btn.addEventListener('click', ()=>{
+  var constraints = { audio: true, video: { width: 375, height: 680 } };
+
+  navigator.mediaDevices.getUserMedia(constraints)
+  .then(function(mediaStream) {
+    var video = document.querySelector('video');
+    video.srcObject = mediaStream;
+
+    const cloneStream = mediaStream.clone()
+
+    video.onloadedmetadata = function(e) {
+      video.play();
+      console.log(e)
+    };
+  })
+  .catch(function(err) { console.log(err.name + ": " + err.message); }); // 总是在最后检查错误
+
+})
+</script>
